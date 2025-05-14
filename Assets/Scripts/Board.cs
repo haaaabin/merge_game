@@ -1,23 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
     public int width;
     public int height;
     public GameObject tilePrefab;
-    private Slot[,] slots;
-
-    public GameObject[] itemPrefabs;
+    private Slot[,] slots; 
 
     void Start()
     {
         SetUp();
-
-        Slot slot = GetSlot(new Vector2Int(2,2));
-        GameObject itemObj = Instantiate(itemPrefabs[0], slot.transform.position, Quaternion.identity);
-
     }
 
     private void SetUp()
@@ -36,18 +31,30 @@ public class Board : MonoBehaviour
                 Slot slot = slotObj.GetComponent<Slot>();
                 slot.gridPos = new Vector2Int(i, j);
                 slots[i, j] = slot;
-
             }
         }
     }
 
-    public Slot GetSlot(Vector2Int gridPos)
+    public List<Slot> GetAllSlots()
     {
-        if (gridPos.x < 0 || gridPos.x >= width || gridPos.y < 0 || gridPos.y >= height)
+        List<Slot> allSlots = new List<Slot>();
+        foreach (Slot slot in slots)
         {
-            return null;
+            allSlots.Add(slot);
         }
-        return slots[gridPos.x, gridPos.y];
+        return allSlots;
     }
-
+    
+    public List<Slot> GetEmptySlots()
+    {
+        List<Slot> emptySlots = new List<Slot>();
+        foreach (Slot slot in slots)
+        {
+            if (slot.currentItem == null)
+            {
+                emptySlots.Add(slot);
+            }
+        }
+        return emptySlots;
+    }
 }
