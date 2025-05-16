@@ -148,14 +148,15 @@ public class Item : MonoBehaviour
 
     private Vector3 GetMouseWorldPos()
     {
-        // 마우스 포인터의 월드 좌표를 가져옵니다.
-        // Camera.main.ScreenToWorldPoint() 메서드를 사용하여 스크린 좌표를 월드 좌표로 변환합니다.
-        // Input.mousePosition은 스크린 좌표를 나타내므로, z축을 0으로 설정하여 2D 평면에서의 위치를 가져옵니다.
-        // Camera.main은 현재 활성화된 카메라를 나타내며, ScreenToWorldPoint() 메서드는 스크린 좌표를 월드 좌표로 변환합니다.
+        Vector3 mousePos = Input.mousePosition;
 
-        Vector3 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePoint.z = 0;
-        return mousePoint;
+        // 현재 오브젝트가 카메라에서 얼마나 떨어져 있는지
+        mousePos.z = Camera.main.WorldToScreenPoint(transform.position).z;
+        
+        // 마우스 위치를 MainCamera 기준 월드 좌표로 변환
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        return worldPos;
     }
 
     // 현재 아이템의 위치와 가장 가까운 슬롯을 찾습니다.
