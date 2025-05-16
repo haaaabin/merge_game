@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemManager : MonoBehaviour
 {
@@ -8,9 +10,12 @@ public class ItemManager : MonoBehaviour
     public List<ItemData> itemDatas;
     public Board board;
 
+    private Transform itemSpawner;
+
+
     private void Awake()
     {
-        if (instance == null)
+        if (!instance)
         {
             instance = this;
         }
@@ -18,6 +23,12 @@ public class ItemManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+    }
+
+    void Start()
+    {
+        itemSpawner = GameObject.Find("ItemSpawner").transform;
     }
 
     public void SpawnRandomLevel1Item()
@@ -39,12 +50,26 @@ public class ItemManager : MonoBehaviour
         Slot randomSlot = emptySlots[Random.Range(0, emptySlots.Count)];
         ItemData randomItemData = level1Items[Random.Range(0, level1Items.Length)];
 
-        GameObject itemObj = Instantiate(randomItemData.itemPrefab, randomSlot.transform.position, Quaternion.identity);
+        GameObject itemObj = Instantiate(randomItemData.itemPrefab, itemSpawner.position, Quaternion.identity);
+
         Item item = itemObj.GetComponent<Item>();
         item.currentSlot = randomSlot;
         item.transform.parent = randomSlot.transform;
 
         randomSlot.currentItem = item;
+
+        // effect
+        itemObj.transform.localScale = Vector3.zero;
+        itemObj.transform.DOScale(0.3f, 0.5f).SetEase(Ease.OutBack);
+
+        itemObj.transform
+               .DOMove(randomSlot.transform.position, 0.7f)
+               .SetEase(Ease.OutCubic)
+               .OnComplete(() =>
+               {
+                   // 정확한 슬롯 위치로 정렬 (부드럽게 스냅)
+                   itemObj.transform.position = randomSlot.transform.position;
+               });
     }
 
     public bool CanMerge(Item itemA, Item itemB)
