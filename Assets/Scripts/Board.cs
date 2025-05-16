@@ -8,7 +8,8 @@ public class Board : MonoBehaviour
     public int width;
     public int height;
     public GameObject tilePrefab;
-    private Slot[,] slots; 
+    public GameObject itemSpawnerPrefab;
+    private Slot[,] slots;
 
     void Start()
     {
@@ -33,6 +34,16 @@ public class Board : MonoBehaviour
                 slots[i, j] = slot;
             }
         }
+
+        GameObject itemSpawnerObj = Instantiate(itemSpawnerPrefab, new Vector3(0, 4), Quaternion.identity);
+        itemSpawnerObj.transform.parent = this.transform;
+        itemSpawnerObj.name = "ItemSpawner";
+
+        Item itemSpawner = itemSpawnerObj.GetComponent<Item>();
+        itemSpawner.isItemSpawner = true;
+        itemSpawner.currentSlot = slots[0, 4];
+        itemSpawner.transform.parent = slots[0, 4].transform;
+        slots[0, 4].currentItem = itemSpawner;
     }
 
     public List<Slot> GetAllSlots()
@@ -44,7 +55,7 @@ public class Board : MonoBehaviour
         }
         return allSlots;
     }
-    
+
     public List<Slot> GetEmptySlots()
     {
         List<Slot> emptySlots = new List<Slot>();
