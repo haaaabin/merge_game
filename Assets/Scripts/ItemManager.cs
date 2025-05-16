@@ -95,6 +95,9 @@ public class ItemManager : MonoBehaviour
             newItem.transform.parent = spawnSlot.transform;
             spawnSlot.currentItem = newItem;
             newItem.itemData = nextLevelData;
+
+            newItemObj.transform.localScale = Vector3.zero;
+            newItemObj.transform.DOScale(0.3f, 0.5f).SetEase(Ease.OutBack);
         }
         else
         {
@@ -104,7 +107,7 @@ public class ItemManager : MonoBehaviour
 
     private ItemData GetNextLevelData(ItemData currentItemData)
     {
-       foreach (var data in itemDatas)
+        foreach (var data in itemDatas)
         {
             if (data.itemType == currentItemData.itemType && data.itemLevel == currentItemData.itemLevel + 1)
             {
