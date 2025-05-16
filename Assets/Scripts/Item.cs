@@ -10,6 +10,10 @@ public class Item : MonoBehaviour
     private RectTransform dragLimitArea;
     public ItemData itemData;
 
+    public bool isItemSpawner = false;
+    private float lastClickTime;
+    private const float doubleClickThreshold = 0.3f; // 더블 클릭 간격
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +24,16 @@ public class Item : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (isItemSpawner)
+        {
+            if (Time.time - lastClickTime < doubleClickThreshold)
+            {
+                ItemManager.instance.SpawnRandomLevel1Item();
+            }
+
+            lastClickTime = Time.time;
+        }
+
         if (currentSlot != null)
         {
             currentSlot.currentItem = null;
