@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -7,7 +8,6 @@ public class Item : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public Slot currentSlot; // 현재 아이템이 위치한 슬롯
     private Board board;
-    private RectTransform dragLimitArea;
     public ItemData itemData;
 
     public bool isItemSpawner = false;
@@ -19,7 +19,6 @@ public class Item : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         board = FindObjectOfType<Board>();
-        dragLimitArea = GameObject.Find("DragLimitArea").GetComponent<RectTransform>();
     }
 
     private void OnMouseDown()
@@ -62,64 +61,88 @@ public class Item : MonoBehaviour
 
         if (nearestSlot != null)
         {
-            // 슬롯이 비어있는지 확인
             if (nearestSlot.currentItem == null)
             {
-                // 드랍한 슬롯에 아이템을 배치
-                transform.position = nearestSlot.transform.position;
-                transform.parent = nearestSlot.transform;
-
-                // 현재 슬롯 비워주기
-                if (currentSlot != null)
-                {
-                    currentSlot.currentItem = null;
-                }
-
-                nearestSlot.currentItem = this;
-                currentSlot = nearestSlot;
-
-                Debug.Log("아이템이 슬롯에 배치되었습니다: " + nearestSlot.name);
+                MoveToSlot(nearestSlot);
             }
-            // 슬롯이 비어있지 않은 경우 아이템 스왑
             else
             {
                 Debug.Log("해당 슬롯에 이미 아이템이 있습니다: " + nearestSlot.name);
 
                 Item otherItem = nearestSlot.currentItem;
-
                 if (ItemManager.instance.CanMerge(this, otherItem))
                 {
                     ItemManager.instance.MergeItems(this, otherItem);
                 }
                 else
                 {
-                    // 종류나 레벨이 다르면 위치 교환
-                    Slot originalSlot = currentSlot;
-
-                    // 위치 교환
-                    otherItem.transform.position = originalSlot.transform.position;
-                    otherItem.transform.parent = originalSlot.transform;
-
-                    transform.position = nearestSlot.transform.position;
-                    transform.parent = nearestSlot.transform;
-
-                    // 슬롯 정보 업데이트
-                    nearestSlot.currentItem = this;
-                    currentSlot = nearestSlot;
-
-                    originalSlot.currentItem = otherItem;
-                    otherItem.currentSlot = originalSlot;
+                    SwapWithItem(otherItem, nearestSlot);
                 }
             }
         }
         else
         {
-            // 원래 위치로 되돌리기
-            if (currentSlot != null)
+            ReturnToOriginalPosition();
+        }
+    }
+
+    private void MoveToSlot(Slot slot)
+    {
+        // 드랍한 슬롯에 아이템을 배치
+        transform.position = slot.transform.position;
+        transform.parent = slot.transform;
+
+        // 현재 슬롯 비워주기
+        if (currentSlot != null)
+        {
+            currentSlot.currentItem = null;
+        }
+
+        slot.currentItem = this;
+        currentSlot = slot;
+
+        Debug.Log("아이템이 슬롯에 배치되었습니다: " + slot.name);
+    }
+
+    private void SwapWithItem(Item otherItem, Slot nearestSlot)
+    {
+        Slot originalSlot = currentSlot;
+
+        // 위치 교환
+        otherItem.transform
+            .DOMove(originalSlot.transform.position, 0.3f)
+            .SetEase(Ease.OutCubic)
+            .OnComplete(() =>
             {
-                transform.position = currentSlot.transform.position;
-                transform.parent = currentSlot.transform;
-            }
+                // 정확한 슬롯 위치로 정렬 (부드럽게 스냅)
+                otherItem.transform.position = originalSlot.transform.position;
+            });
+
+        transform.DOMove(nearestSlot.transform.position, 0.3f)
+            .SetEase(Ease.OutCubic)
+            .OnComplete(() =>
+            {
+                // 정확한 슬롯 위치로 정렬 (부드럽게 스냅)
+                transform.position = nearestSlot.transform.position;
+            });
+
+        // 슬롯 정보 업데이트
+        otherItem.transform.parent = originalSlot.transform;
+        transform.parent = nearestSlot.transform;
+
+        nearestSlot.currentItem = this;
+        currentSlot = nearestSlot;
+
+        originalSlot.currentItem = otherItem;
+        otherItem.currentSlot = originalSlot;
+    }
+
+    private void ReturnToOriginalPosition()
+    {
+        if (currentSlot != null)
+        {
+            transform.position = currentSlot.transform.position;
+            transform.parent = currentSlot.transform;
         }
     }
 
