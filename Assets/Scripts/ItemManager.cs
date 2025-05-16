@@ -73,7 +73,12 @@ public class ItemManager : MonoBehaviour
     }
 
     public bool CanMerge(Item itemA, Item itemB)
-    {
+    {   
+        if (itemA.itemData == null || itemB.itemData == null)
+        {
+            return false;
+        }
+
         return itemA.itemData.itemType == itemB.itemData.itemType &&
                itemA.itemData.itemLevel == itemB.itemData.itemLevel;
     }
