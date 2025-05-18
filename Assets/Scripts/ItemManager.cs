@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +10,10 @@ public class ItemManager : MonoBehaviour
     public static ItemManager instance;
     public List<ItemData> itemDatas;
     public Board board;
-
     private Transform itemSpawner;
 
+    public int energyCount = 100;
+    public TextMeshProUGUI energyText;
 
     private void Awake()
     {
@@ -33,6 +35,12 @@ public class ItemManager : MonoBehaviour
 
     public void SpawnRandomLevel1Item()
     {
+        if (energyCount <= 0)
+        {
+            Debug.LogWarning("전기가 부족합니다.");
+            return;
+        }
+
         var level1Items = itemDatas.Where(i => i.itemLevel == 1).ToArray();
         if (level1Items.Length == 0)
         {
@@ -46,6 +54,9 @@ public class ItemManager : MonoBehaviour
             Debug.LogWarning("비어있는 슬롯이 없습니다.");
             return;
         }
+
+        energyCount -= 2;
+        energyText.text = energyCount.ToString();
 
         Slot randomSlot = emptySlots[Random.Range(0, emptySlots.Count)];
         ItemData randomItemData = level1Items[Random.Range(0, level1Items.Length)];
