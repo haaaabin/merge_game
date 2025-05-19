@@ -27,10 +27,11 @@ public class Item : MonoBehaviour
         {
             if (Time.time - lastClickTime < doubleClickThreshold)
             {
-                ItemManager.instance.SpawnRandomLevel1Item();
+                GameManager.instance.itemManager.SpawnRandomLevel1Item();
             }
 
             lastClickTime = Time.time;
+
         }
 
         if (currentSlot != null)
@@ -70,9 +71,9 @@ public class Item : MonoBehaviour
                 Debug.Log("해당 슬롯에 이미 아이템이 있습니다: " + nearestSlot.name);
 
                 Item otherItem = nearestSlot.currentItem;
-                if (ItemManager.instance.CanMerge(this, otherItem))
+                if (GameManager.instance.itemManager.CanMerge(this, otherItem))
                 {
-                    ItemManager.instance.MergeItems(this, otherItem);
+                    GameManager.instance.itemManager.MergeItems(this, otherItem);
                 }
                 else
                 {

@@ -3,29 +3,14 @@ using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ItemManager : MonoBehaviour
 {
-    public static ItemManager instance;
     public List<ItemData> allItemDatas;
     private Transform itemSpawner;
 
     public int energyCount = 100;
     public TextMeshProUGUI energyText;
-
-    private void Awake()
-    {
-        if (!instance)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-    }
 
     void Start()
     {
@@ -81,7 +66,7 @@ public class ItemManager : MonoBehaviour
                    itemObj.transform.position = randomSlot.transform.position;
                });
 
-        OrderManager.instance.CheckAllOrders();
+        GameManager.instance.orderManager.CheckAllOrders();
     }
 
     public bool CanMerge(Item itemA, Item itemB)
@@ -116,7 +101,7 @@ public class ItemManager : MonoBehaviour
             newItemObj.transform.localScale = Vector3.zero;
             newItemObj.transform.DOScale(0.3f, 0.5f).SetEase(Ease.OutBack);
 
-            OrderManager.instance.CheckAllOrders();
+            GameManager.instance.orderManager.CheckAllOrders();
         }
         else
         {

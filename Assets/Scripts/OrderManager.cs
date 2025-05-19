@@ -7,8 +7,6 @@ using UnityEngine;
 // 주문을 관리하는 클래스
 public class OrderManager : MonoBehaviour
 {
-    public static OrderManager instance;
-
     public Queue<OrderData> orderQueue = new Queue<OrderData>();
     public int initialOrderCount = 10; // 초기 주문 수량
 
@@ -18,17 +16,6 @@ public class OrderManager : MonoBehaviour
     private List<OrderPanelUI> orderPanels = new List<OrderPanelUI>();
     private const int maxVisibleOrders = 3; // 화면에 보일 최대 주문 수
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +27,7 @@ public class OrderManager : MonoBehaviour
     // 초기 주문 생성
     private void GenerateInitialOrders()
     {
-        List<ItemData> allItems = ItemManager.instance.GetAllItemData()
+        List<ItemData> allItems = GameManager.instance.itemManager.GetAllItemData()
             .Where(item => item.itemLevel > 1)
             .ToList();
 
