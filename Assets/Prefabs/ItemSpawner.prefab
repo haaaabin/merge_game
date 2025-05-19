@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -5373683754190828166}
   m_Layer: 0
   m_Name: ItemSpawner
-  m_TagString: itemSpawner
+  m_TagString: ItemSpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,5 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSlot: {fileID: 0}
-  itemData: {fileID: 0}
+  itemData: {fileID: 11400000, guid: 2eb3f3b87c0361e4e83a49029f1d515f, type: 2}
   isItemSpawner: 1

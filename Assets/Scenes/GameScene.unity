@@ -1947,8 +1947,9 @@ GameObject:
   - component: {fileID: 1883376731}
   - component: {fileID: 1883376730}
   - component: {fileID: 1883376728}
+  - component: {fileID: 1883376733}
   m_Layer: 5
-  m_Name: Description_Panel
+  m_Name: ItemInfo_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2054,6 +2055,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883376726}
   m_CullTransparentMesh: 0
+--- !u!114 &1883376733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883376726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29e8adb63472ca43affab4460d8e9b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoText: {fileID: 612392017}
 --- !u!1 &2028230670
 GameObject:
   m_ObjectHideFlags: 0

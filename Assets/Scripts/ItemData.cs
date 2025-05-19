@@ -15,5 +15,6 @@ public enum ItemType
 {
     Bread,
     Drink,
-    Rice
+    Rice,
+    None
 }
