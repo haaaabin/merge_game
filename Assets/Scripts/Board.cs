@@ -79,4 +79,24 @@ public class Board : MonoBehaviour
         }
         return emptySlots;
     }
+
+    public bool HasItem(ItemData itemData)
+    {
+        foreach (var slot in slots)
+        {
+            if (slot.currentItem != null && slot.currentItem.itemData == itemData)
+                return true;
+        }
+        return false;
+    }
+
+    public Item GetItem(ItemData itemData)
+    {
+        foreach (var slot in slots)
+        {
+            if (slot.currentItem != null && slot.currentItem.itemData == itemData)
+                return slot.currentItem;
+        }
+        return null;
+    }
 }
