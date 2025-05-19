@@ -14,7 +14,7 @@ public class ItemManager : MonoBehaviour
 
     void Start()
     {
-        itemSpawner = GameObject.Find("ItemSpawner").transform;
+        itemSpawner = GameObject.FindWithTag("ItemSpawner").transform;
     }
 
     public void SpawnRandomLevel1Item()

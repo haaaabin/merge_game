@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -5373683754190828166}
   m_Layer: 0
   m_Name: ItemSpawner
-  m_TagString: Untagged
+  m_TagString: itemSpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
