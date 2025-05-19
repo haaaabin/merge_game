@@ -8,8 +8,7 @@ using UnityEngine.UI;
 public class ItemManager : MonoBehaviour
 {
     public static ItemManager instance;
-    public List<ItemData> itemDatas;
-    public Board board;
+    public List<ItemData> allItemDatas;
     private Transform itemSpawner;
 
     public int energyCount = 100;
@@ -41,14 +40,14 @@ public class ItemManager : MonoBehaviour
             return;
         }
 
-        var level1Items = itemDatas.Where(i => i.itemLevel == 1).ToArray();
+        var level1Items = allItemDatas.Where(i => i.itemLevel == 1).ToArray();
         if (level1Items.Length == 0)
         {
             Debug.LogWarning("레벨 1 아이템이 없습니다.");
             return;
         }
 
-        List<Slot> emptySlots = board.GetEmptySlots();
+        List<Slot> emptySlots = Board.instance.GetEmptySlots();
         if (emptySlots.Count == 0)
         {
             Debug.LogWarning("비어있는 슬롯이 없습니다.");
@@ -81,10 +80,12 @@ public class ItemManager : MonoBehaviour
                    // 정확한 슬롯 위치로 정렬 (부드럽게 스냅)
                    itemObj.transform.position = randomSlot.transform.position;
                });
+
+        OrderManager.instance.CheckAllOrders();
     }
 
     public bool CanMerge(Item itemA, Item itemB)
-    {   
+    {
         if (itemA.itemData == null || itemB.itemData == null)
         {
             return false;
@@ -114,6 +115,8 @@ public class ItemManager : MonoBehaviour
 
             newItemObj.transform.localScale = Vector3.zero;
             newItemObj.transform.DOScale(0.3f, 0.5f).SetEase(Ease.OutBack);
+
+            OrderManager.instance.CheckAllOrders();
         }
         else
         {
@@ -123,7 +126,7 @@ public class ItemManager : MonoBehaviour
 
     private ItemData GetNextLevelData(ItemData currentItemData)
     {
-        foreach (var data in itemDatas)
+        foreach (var data in allItemDatas)
         {
             if (data.itemType == currentItemData.itemType && data.itemLevel == currentItemData.itemLevel + 1)
             {
@@ -131,5 +134,10 @@ public class ItemManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public List<ItemData> GetAllItemData()
+    {
+        return allItemDatas;
     }
 }
