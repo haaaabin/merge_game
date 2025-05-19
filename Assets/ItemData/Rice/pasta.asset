@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: pasta
   itemLevel: 6
   itemPrefab: {fileID: 4195734375673288719, guid: 591e361689a95614382df8be33faa839, type: 3}
+  itemImage: {fileID: 21300000, guid: fb98ba585cf93474082fd5247e68ad14, type: 3}
   itemType: 2

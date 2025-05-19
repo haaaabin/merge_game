@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: applepie
   itemLevel: 5
   itemPrefab: {fileID: 4053136335600343997, guid: 3fc3d5d27acb57945ad2299be1649447, type: 3}
+  itemImage: {fileID: 21300000, guid: 236f2b4c451cd7a418dfb45e21688f30, type: 3}
   itemType: 0

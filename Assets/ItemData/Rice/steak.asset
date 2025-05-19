@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: steak
   itemLevel: 7
   itemPrefab: {fileID: 6932339745178999866, guid: 5714b77a637d6ac429fea0b4cf8f385b, type: 3}
+  itemImage: {fileID: 21300000, guid: e06f6c1f83f5b0045ae680a6ca2b09b6, type: 3}
   itemType: 2

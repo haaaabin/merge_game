@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: croissants
   itemLevel: 3
   itemPrefab: {fileID: 7862653186300272223, guid: c0f78897a8ff03f45bbd743a1a1dbc24, type: 3}
+  itemImage: {fileID: 21300000, guid: 8294a540c6212af46b8b2a08674ef1e4, type: 3}
   itemType: 0

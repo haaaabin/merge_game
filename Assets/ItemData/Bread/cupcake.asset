@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: cupcake
   itemLevel: 4
   itemPrefab: {fileID: 8679273922885946427, guid: 9c0a533fedca2f64e808ebeab0c7e725, type: 3}
+  itemImage: {fileID: 21300000, guid: dc301ff6f50bf7840a072a989c7d4830, type: 3}
   itemType: 0

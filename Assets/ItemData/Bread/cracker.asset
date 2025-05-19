@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: cracker
   itemLevel: 1
   itemPrefab: {fileID: 380501961204153088, guid: 393f4133e2e13134394444b33f27a6e0, type: 3}
+  itemImage: {fileID: 21300000, guid: 9f268a2f760bfb84280084daf7b2a0b7, type: 3}
   itemType: 0

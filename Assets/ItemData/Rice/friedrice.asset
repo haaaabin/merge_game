@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: friedrice
   itemLevel: 2
   itemPrefab: {fileID: 1312204211440986951, guid: 4402a5b34fd97ee40b9440c68a4d118d, type: 3}
+  itemImage: {fileID: 21300000, guid: 9b45ac3b9a16eee439129c322a5fd9a0, type: 3}
   itemType: 2

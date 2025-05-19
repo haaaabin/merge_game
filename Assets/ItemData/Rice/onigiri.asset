@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: onigiri
   itemLevel: 1
   itemPrefab: {fileID: 7354618508645747433, guid: cbcac0ed34a37394fb4bd86b5b4abcb6, type: 3}
+  itemImage: {fileID: 21300000, guid: 2d16c0c8f15eb4248b3f101fb3c933dd, type: 3}
   itemType: 2

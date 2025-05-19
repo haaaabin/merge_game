@@ -15,3 +15,5 @@ MonoBehaviour:
   itemName: cookie
   itemLevel: 2
   itemPrefab: {fileID: 1248259395806259520, guid: 9ba472354ae92d445a175fbf088ad2b2, type: 3}
+  itemImage: {fileID: 21300000, guid: df39aaad807bb3c4aa87149dc2986227, type: 3}
+  itemType: 0
