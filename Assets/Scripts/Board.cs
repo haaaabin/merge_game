@@ -20,10 +20,7 @@ public class Board : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    void Start()
-    {
         SetUp();
     }
 
@@ -46,7 +43,7 @@ public class Board : MonoBehaviour
             }
         }
 
-        GameObject itemSpawnerObj = Instantiate(itemSpawnerPrefab, new Vector3(0, 4), Quaternion.identity);
+        GameObject itemSpawnerObj = Instantiate(itemSpawnerPrefab, new Vector3(0, 5), Quaternion.identity);
         itemSpawnerObj.transform.parent = this.transform;
         itemSpawnerObj.name = "ItemSpawner";
 
