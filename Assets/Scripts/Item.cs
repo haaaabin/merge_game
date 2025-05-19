@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -14,11 +15,16 @@ public class Item : MonoBehaviour
     private float lastClickTime;
     private const float doubleClickThreshold = 0.3f; // 더블 클릭 간격
 
+    private Vector3 originalScale;
+
+    private ItemInfoUI itemInfoUI;
+
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         board = FindObjectOfType<Board>();
+        itemInfoUI = FindObjectOfType<ItemInfoUI>();
     }
 
     private void OnMouseDown()
@@ -50,6 +56,7 @@ public class Item : MonoBehaviour
         if (isDragging)
         {
             transform.position = GetMouseWorldPos() + offset;
+
         }
     }
 
@@ -57,6 +64,18 @@ public class Item : MonoBehaviour
     {
         isDragging = false;
 
+        if (originalScale == Vector3.zero)
+        {
+            originalScale = transform.localScale;
+        }
+        transform.DOScale(originalScale * 1.2f, 0.3f).OnComplete(() =>
+        {
+            transform.DOScale(originalScale, 0.2f);
+        });
+
+        // 아이템 정보 표시
+        DisplayItemInfo();
+        
         // 드랍한 위치에서 가장 가까운 슬롯 찾기
         Slot nearestSlot = FindClosetSlot();
 
@@ -144,6 +163,18 @@ public class Item : MonoBehaviour
         {
             transform.position = currentSlot.transform.position;
             transform.parent = currentSlot.transform;
+        }
+    }
+
+    private void DisplayItemInfo()
+    {
+        if (itemInfoUI != null)
+        {
+            itemInfoUI.ShowItemInfo(this);
+        }
+        else
+        {
+            Debug.LogWarning("ItemInfoUI를 찾을 수 없읍");
         }
     }
 
