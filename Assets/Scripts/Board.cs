@@ -1,15 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
+    public static Board instance;
     public int width;
     public int height;
     public GameObject tilePrefab;
     public GameObject itemSpawnerPrefab;
     private Slot[,] slots;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -41,9 +52,9 @@ public class Board : MonoBehaviour
 
         Item itemSpawner = itemSpawnerObj.GetComponent<Item>();
         itemSpawner.isItemSpawner = true;
-        itemSpawner.currentSlot = slots[0, 4];
-        itemSpawner.transform.parent = slots[0, 4].transform;
-        slots[0, 4].currentItem = itemSpawner;
+        itemSpawner.currentSlot = slots[0, 5];
+        itemSpawner.transform.parent = slots[0, 5].transform;
+        slots[0, 5].currentItem = itemSpawner;
     }
 
     public List<Slot> GetAllSlots()
