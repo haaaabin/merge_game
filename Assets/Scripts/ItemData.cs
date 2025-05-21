@@ -16,5 +16,7 @@ public enum ItemType
     Bread,
     Drink,
     Rice,
-    None
+    ItemSpawner,
+    Item
+
 }

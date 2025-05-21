@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8271f87247a67a7438b38c2ed2789e75, type: 3}
+  m_Name: Mirror_Item
+  m_EditorClassIdentifier: 
+  itemName: "\uAC70\uC6B8"
+  itemLevel: 4
+  itemPrefab: {fileID: 6570854284580753287, guid: 0d2920c3c97aa354b84621282795727c, type: 3}
+  itemImage: {fileID: 21300000, guid: a1bc8990ffaedfa4e8ec584d923f90b1, type: 3}
+  itemType: 4
