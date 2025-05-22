@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -10,18 +9,18 @@ public class ItemBoxUI : MonoBehaviour
     public TextMeshProUGUI countText;
     public Image iconImg;
     public GameObject countTextPanel;
-
+    
     public int count;
-
     public List<ItemData> itemBox = new List<ItemData>();
     public Transform itemBoxTransform;
-
 
     void Start()
     {
         if (itemBox.Count > 0)
         {
             iconImg.sprite = itemBox[0].itemImage;
+            count = itemBox.Count;
+            countText.text = count.ToString();
         }
     }
 
@@ -39,16 +38,6 @@ public class ItemBoxUI : MonoBehaviour
             return;
         }
 
-        count--;
-        if (count <= 0)
-        {
-            count = 0;
-            countTextPanel.SetActive(false);
-            iconImg.gameObject.SetActive(false);
-        }
-
-        countText.text = count.ToString();
-
         Slot randomSlot = emptySlots[Random.Range(0, emptySlots.Count)];
         ItemData spawnData = itemBox[0];
 
@@ -65,8 +54,10 @@ public class ItemBoxUI : MonoBehaviour
 
         randomSlot.currentItem = item;
 
+        RemoveItemBox(itemBox[0]);
+
         itemObj.transform.localScale = Vector3.zero;
-        itemObj.transform.DOScale(0.15f, 0.5f).SetEase(Ease.OutBack);
+        itemObj.transform.DOScale(0.1f, 0.5f).SetEase(Ease.OutBack);
 
         itemObj.transform
                 .DOMove(randomSlot.transform.position, 0.7f)
@@ -74,12 +65,25 @@ public class ItemBoxUI : MonoBehaviour
                 .OnComplete(() =>
                 {
                     itemObj.transform.position = randomSlot.transform.position;
-                    RemoveItemBox(itemBox[0]);
                 });
     }
 
     public void RemoveItemBox(ItemData item)
     {
+        count--;
         itemBox.Remove(item);
+
+        if (itemBox.Count > 0)
+        {
+            iconImg.sprite = itemBox[0].itemImage;
+            iconImg.gameObject.SetActive(true);
+            countTextPanel.SetActive(true);
+            countText.text = count.ToString();
+        }
+        else
+        {
+            iconImg.gameObject.SetActive(false);
+            countTextPanel.SetActive(false);
+        }
     }
 }
