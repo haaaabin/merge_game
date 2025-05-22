@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7524058862775384379}
   - component: {fileID: 3256526596448241031}
   - component: {fileID: 4044700284105149860}
-  - component: {fileID: 2927227413938808251}
+  - component: {fileID: 5215554713045137880}
   m_Layer: 0
   m_Name: applepie
   m_TagString: Untagged
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.56, y: 2.56}
   m_EdgeRadius: 0
---- !u!114 &2927227413938808251
+--- !u!114 &5215554713045137880
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,9 +140,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4053136335600343997}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e085ffbfede9a4983a025eb867284d, type: 3}
+  m_Script: {fileID: 11500000, guid: 50b067ce862cd5148a6fd8a1bc1f73dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentSlot: {fileID: 0}
   itemData: {fileID: 11400000, guid: 8c4fdfb01f717d74ca666b3436f6f5e4, type: 2}
-  isItemSpawner: 0

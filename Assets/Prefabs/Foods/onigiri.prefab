@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1557421147025254179}
   - component: {fileID: 8843858710552330143}
   - component: {fileID: 812191936768144439}
-  - component: {fileID: 5695361579953809559}
+  - component: {fileID: 1589303166388671193}
   m_Layer: 0
   m_Name: onigiri
   m_TagString: Untagged
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.56, y: 2.56}
   m_EdgeRadius: 0
---- !u!114 &5695361579953809559
+--- !u!114 &1589303166388671193
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,9 +140,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7354618508645747433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e085ffbfede9a4983a025eb867284d, type: 3}
+  m_Script: {fileID: 11500000, guid: 50b067ce862cd5148a6fd8a1bc1f73dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentSlot: {fileID: 0}
   itemData: {fileID: 11400000, guid: f4223ae78b4d4bd41b535883dd074da2, type: 2}
-  isItemSpawner: 0

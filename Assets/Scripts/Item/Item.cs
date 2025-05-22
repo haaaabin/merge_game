@@ -1,45 +1,29 @@
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour
 {
-    private Vector3 offset; // 아이템과 마우스 포인터 간의 거리
-    private bool isDragging = false; // 드래그 상태를 나타내는 변수
-    private SpriteRenderer spriteRenderer;
+    protected Vector3 offset; // 아이템과 마우스 포인터 간의 거리
+    protected bool isDragging = false; // 드래그 상태를 나타내는 변수
+    protected SpriteRenderer spriteRenderer;
+    protected float lastClickTime;
+    protected const float doubleClickThreshold = 0.3f; // 더블 클릭 간격
+    protected Vector3 originalScale;
+    protected ItemInfoUI itemInfoUI;
+
     public Slot currentSlot; // 현재 아이템이 위치한 슬롯
-    private Board board;
     public ItemData itemData;
 
-    public bool isItemSpawner = false;
-    private float lastClickTime;
-    private const float doubleClickThreshold = 0.3f; // 더블 클릭 간격
-
-    private Vector3 originalScale;
-
-    private ItemInfoUI itemInfoUI;
-
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        board = FindObjectOfType<Board>();
         itemInfoUI = FindObjectOfType<ItemInfoUI>();
+
     }
 
-    private void OnMouseDown()
+    protected virtual void OnMouseDown()
     {
-        if (isItemSpawner)
-        {
-            if (Time.time - lastClickTime < doubleClickThreshold)
-            {
-                GameManager.instance.itemManager.SpawnRandomLevel1Item();
-            }
-
-            lastClickTime = Time.time;
-
-        }
-
         if (currentSlot != null)
         {
             currentSlot.currentItem = null;
@@ -51,16 +35,15 @@ public class Item : MonoBehaviour
         spriteRenderer.sortingOrder = 10;
     }
 
-    private void OnMouseDrag()
+    protected virtual void OnMouseDrag()
     {
         if (isDragging)
         {
             transform.position = GetMouseWorldPos() + offset;
-
         }
     }
 
-    private void OnMouseUp()
+    protected virtual void OnMouseUp()
     {
         isDragging = false;
 
@@ -68,6 +51,7 @@ public class Item : MonoBehaviour
         {
             originalScale = transform.localScale;
         }
+
         transform.DOScale(originalScale * 1.2f, 0.3f).OnComplete(() =>
         {
             transform.DOScale(originalScale, 0.2f);
@@ -75,10 +59,9 @@ public class Item : MonoBehaviour
 
         // 아이템 정보 표시
         DisplayItemInfo();
-        
-        // 드랍한 위치에서 가장 가까운 슬롯 찾기
-        Slot nearestSlot = FindClosetSlot();
 
+        // 드랍한 위치에서 가장 가까운 슬롯 찾기
+        Slot nearestSlot = FindClosestSlot();
         if (nearestSlot != null)
         {
             if (nearestSlot.currentItem == null)
@@ -87,8 +70,6 @@ public class Item : MonoBehaviour
             }
             else
             {
-                Debug.Log("해당 슬롯에 이미 아이템이 있습니다: " + nearestSlot.name);
-
                 Item otherItem = nearestSlot.currentItem;
                 if (GameManager.instance.itemManager.CanMerge(this, otherItem))
                 {
@@ -106,7 +87,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    private void MoveToSlot(Slot slot)
+    protected void MoveToSlot(Slot slot)
     {
         // 드랍한 슬롯에 아이템을 배치
         transform.position = slot.transform.position;
@@ -120,11 +101,9 @@ public class Item : MonoBehaviour
 
         slot.currentItem = this;
         currentSlot = slot;
-
-        Debug.Log("아이템이 슬롯에 배치되었습니다: " + slot.name);
     }
 
-    private void SwapWithItem(Item otherItem, Slot nearestSlot)
+    protected void SwapWithItem(Item otherItem, Slot nearestSlot)
     {
         Slot originalSlot = currentSlot;
 
@@ -157,7 +136,7 @@ public class Item : MonoBehaviour
         otherItem.currentSlot = originalSlot;
     }
 
-    private void ReturnToOriginalPosition()
+    protected void ReturnToOriginalPosition()
     {
         if (currentSlot != null)
         {
@@ -166,7 +145,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    private void DisplayItemInfo()
+    protected void DisplayItemInfo()
     {
         if (itemInfoUI != null)
         {
@@ -178,13 +157,13 @@ public class Item : MonoBehaviour
         }
     }
 
-    private Vector3 GetMouseWorldPos()
+    protected Vector3 GetMouseWorldPos()
     {
         Vector3 mousePos = Input.mousePosition;
 
         // 현재 오브젝트가 카메라에서 얼마나 떨어져 있는지
         mousePos.z = Camera.main.WorldToScreenPoint(transform.position).z;
-        
+
         // 마우스 위치를 MainCamera 기준 월드 좌표로 변환
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
@@ -192,12 +171,12 @@ public class Item : MonoBehaviour
     }
 
     // 현재 아이템의 위치와 가장 가까운 슬롯을 찾습니다.
-    private Slot FindClosetSlot()
+    protected Slot FindClosestSlot()
     {
         Slot closestSlot = null;
         float closestDistance = Mathf.Infinity;  // 가장 가까운 슬롯과의 거리 초기화
 
-        foreach (Slot slot in board.GetAllSlots())
+        foreach (Slot slot in Board.instance.GetAllSlots())
         {
             float distance = Vector3.Distance(transform.position, slot.transform.position);
             if (distance < closestDistance && distance < 1)
@@ -208,5 +187,10 @@ public class Item : MonoBehaviour
         }
 
         return closestSlot;
+    }
+
+    public virtual string GetItemDescription()
+    {
+        return $"{itemData.itemName}/Lv.{itemData.itemLevel} : 합쳐서 다음 레벨에 도달하세요.";
     }
 }

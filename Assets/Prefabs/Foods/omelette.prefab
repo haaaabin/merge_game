@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2584892043803658135}
   - component: {fileID: 5122963425910341988}
   - component: {fileID: 450105691676650962}
-  - component: {fileID: 7149497295551844235}
+  - component: {fileID: 7286125040030124831}
   m_Layer: 0
   m_Name: omelette
   m_TagString: Untagged
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.56, y: 2.56}
   m_EdgeRadius: 0
---- !u!114 &7149497295551844235
+--- !u!114 &7286125040030124831
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,9 +140,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3352795202634977408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e085ffbfede9a4983a025eb867284d, type: 3}
+  m_Script: {fileID: 11500000, guid: 50b067ce862cd5148a6fd8a1bc1f73dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentSlot: {fileID: 0}
   itemData: {fileID: 11400000, guid: 3370178755b05804eac001e0a4c6c9a0, type: 2}
-  isItemSpawner: 0

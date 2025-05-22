@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1047272576996239069}
   - component: {fileID: 5601695535565838704}
   - component: {fileID: 5966878963010367687}
-  - component: {fileID: 3144056943826494396}
+  - component: {fileID: 3225787134552548373}
   m_Layer: 0
   m_Name: cake
   m_TagString: Untagged
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.56, y: 2.56}
   m_EdgeRadius: 0
---- !u!114 &3144056943826494396
+--- !u!114 &3225787134552548373
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,9 +140,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 602773939939687092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e085ffbfede9a4983a025eb867284d, type: 3}
+  m_Script: {fileID: 11500000, guid: 50b067ce862cd5148a6fd8a1bc1f73dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentSlot: {fileID: 0}
   itemData: {fileID: 11400000, guid: 8759bc8c261dc9c4189917712e4d7735, type: 2}
-  isItemSpawner: 0

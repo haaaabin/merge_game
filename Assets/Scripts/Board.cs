@@ -48,7 +48,6 @@ public class Board : MonoBehaviour
         itemSpawnerObj.name = "ItemSpawner";
 
         Item itemSpawner = itemSpawnerObj.GetComponent<Item>();
-        itemSpawner.isItemSpawner = true;
         itemSpawner.currentSlot = slots[0, 5];
         itemSpawner.transform.parent = slots[0, 5].transform;
         slots[0, 5].currentItem = itemSpawner;

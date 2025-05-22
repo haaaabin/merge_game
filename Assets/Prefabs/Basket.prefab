@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2212984314567431581}
   - component: {fileID: 9098195029030414732}
-  - component: {fileID: 4480964244395498338}
-  - component: {fileID: -5373683754190828166}
+  - component: {fileID: 7362626434082627636}
+  - component: {fileID: 1919038293223991324}
   m_Layer: 0
   m_Name: Basket
   m_TagString: ItemSpawner
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4480964244395498338
+--- !u!61 &7362626434082627636
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,9 +129,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
---- !u!114 &-5373683754190828166
+--- !u!114 &1919038293223991324
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,9 +140,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3711763398212097052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e085ffbfede9a4983a025eb867284d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fbeb55b35faac24fbb4d769a9c86ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentSlot: {fileID: 0}
   itemData: {fileID: 11400000, guid: 2eb3f3b87c0361e4e83a49029f1d515f, type: 2}
-  isItemSpawner: 1
