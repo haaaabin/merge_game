@@ -8,7 +8,7 @@ using UnityEngine;
 public class OrderManager : MonoBehaviour
 {
     public Queue<OrderData> orderQueue = new Queue<OrderData>();
-    public int initialOrderCount = 10; // 초기 주문 수량
+    public int initialOrderCount = 5; // 초기 주문 수량
 
     [SerializeField] private GameObject orderPanelPrefab;
     [SerializeField] private Transform orderPanelParent;
@@ -106,6 +106,7 @@ public class OrderManager : MonoBehaviour
 
                 orderPanel.transform.localScale = Vector3.zero;
                 orderPanel.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBack);
+                CheckAllOrders();
             });
         }
         else
