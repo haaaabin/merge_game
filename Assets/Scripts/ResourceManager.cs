@@ -17,6 +17,8 @@ public class ResourceManager : MonoBehaviour
     private float timeRemaining;
     private int energyBuyDiamond = 20;
     private int displayEnergy = 0;
+    public Image fillImage;
+    private float currentTime = 0f;
 
 
     [Header("---- Coin ----")]
@@ -43,24 +45,41 @@ public class ResourceManager : MonoBehaviour
         if (energyCount < 100)
         {
             energyRechargePanel.SetActive(true);
-            if (timeRemaining > 0)
+
+            // 현재 시간을 감소시키는 대신, 경과 시간을 누적해서 비율 계산
+            currentTime += Time.deltaTime;
+
+            if (currentTime < countdownTime)
             {
-                timeRemaining -= Time.deltaTime;
+                // 채워지는 비율 계산 (0~1)
+                float progress = Mathf.Clamp01(currentTime / countdownTime);
+                fillImage.fillAmount = progress;
+
+                // 남은 시간 계산
+                timeRemaining = countdownTime - currentTime;
+                DisplayRechargeTime(timeRemaining);
             }
             else
             {
+                // 충전 완료
                 energyCount++;
                 energyText.text = energyCount.ToString();
-                ResetTimer();
-            }
 
-            DisplayRechargeTime(timeRemaining);
+                // 시간 초기화 및 이미지 초기화 (다시 채우기 시작)
+                currentTime = 0f;
+                fillImage.fillAmount = 0f;
+            }
         }
         else
         {
             energyRechargePanel.SetActive(false);
+
+            // 충전 완료 후 초기화
+            currentTime = 0f;
+            fillImage.fillAmount = 1f;
         }
     }
+
 
     private void ResetResources()
     {
