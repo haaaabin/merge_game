@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 
     public ItemManager itemManager;
     public OrderManager orderManager;
-    public CoinManager coinManager;
+    public ResourceManager resourceManager;
 
     private void Awake()
     {
@@ -22,6 +22,6 @@ public class GameManager : MonoBehaviour
 
         itemManager = GetComponent<ItemManager>();
         orderManager = GetComponent<OrderManager>();
-        coinManager = GetComponent<CoinManager>();
+        resourceManager = GetComponent<ResourceManager>();
     }
 }

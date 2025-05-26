@@ -65,7 +65,7 @@ public class OrderPanelUI : MonoBehaviour
                 seq.OnComplete(() =>
                 {
                     Destroy(foundItem.gameObject);
-                    GameManager.instance.coinManager.AddCoins(currentOrder.reward);
+                    GameManager.instance.resourceManager.AddCoins(currentOrder.reward);
                     GameManager.instance.orderManager.CompleteCurrentOrder(this);
                 });
             }

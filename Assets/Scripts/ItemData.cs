@@ -18,5 +18,4 @@ public enum ItemType
     Rice,
     ItemSpawner,
     Item
-
 }
