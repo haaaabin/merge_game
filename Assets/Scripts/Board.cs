@@ -95,4 +95,40 @@ public class Board : MonoBehaviour
         }
         return null;
     }
+
+    private Vector2Int GetSlotPosition(Slot slot)
+    {
+        return slot.gridPos;
+    }
+
+    private Slot GetSlotAtPosition(Vector2Int pos)
+    {
+        if (pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height)
+        {
+            return slots[pos.x, pos.y];
+        }
+        return null;
+    }
+
+    public List<Slot> GetNearbyEmptySlots(Slot centerSlot, int range = 1)
+    {
+        List<Slot> nearbyEmptySlots = new List<Slot>();
+
+        Vector2Int centerPos = GetSlotPosition(centerSlot);
+        for (int dx = -range; dx <= range; dx++)
+        {
+            for (int dy = -range; dy <= range; dy++)
+            {
+                if (dx == 0 && dy == 0) continue; // 현재 슬롯 제외
+
+                Vector2Int checkPos = centerPos + new Vector2Int(dx, dy);
+                Slot checkSlot = GetSlotAtPosition(checkPos);
+                if (checkSlot != null && checkSlot.currentItem == null)
+                {
+                    nearbyEmptySlots.Add(checkSlot);
+                }
+            }
+        }
+        return nearbyEmptySlots;
+    }
 }
