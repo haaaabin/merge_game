@@ -28,6 +28,7 @@ public class ItemInfoUI : MonoBehaviour
         if (item != null)
         {
             infoText.text = item.GetItemDescription();
+            
             sellPricePanel.SetActive(true);
             sellButton.gameObject.SetActive(true);
             sellPriceText.gameObject.SetActive(true);

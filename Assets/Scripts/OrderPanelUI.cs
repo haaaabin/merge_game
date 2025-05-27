@@ -42,6 +42,7 @@ public class OrderPanelUI : MonoBehaviour
             {
                 foundItem.currentSlot.currentItem = null;
                 foundItem.transform.SetParent(null);
+                foundItem.currentSlot.selectionOutline.SetActive(false);
 
                 // 1. UI 위치를 스크린 좌표로 변환
                 Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(itemImage.canvas.worldCamera, itemImage.rectTransform.position);

@@ -81,6 +81,7 @@ public class ItemManager : MonoBehaviour
 
     public void MergeItems(Item itemA, Item itemB)
     {
+        itemA.currentSlot.selectionOutline.SetActive(false);
         ItemData nextLevelData = GetNextLevelData(itemA.itemData);
         if (nextLevelData != null)
         {
@@ -97,9 +98,12 @@ public class ItemManager : MonoBehaviour
             spawnSlot.currentItem = newItem;
             newItem.itemData = nextLevelData;
 
+            spawnSlot.selectionOutline.SetActive(true);
+
             newItemObj.transform.localScale = Vector3.zero;
             newItemObj.transform.DOScale(0.3f, 0.5f).SetEase(Ease.OutBack);
 
+            GameManager.instance.selectedItem = newItem;
             GameManager.instance.orderManager.CheckAllOrders();
         }
         else
@@ -152,6 +156,8 @@ public class ItemManager : MonoBehaviour
         Slot randomSlot = nearbyEmptySlots[Random.Range(0, nearbyEmptySlots.Count)];
 
         SetupNewItem(Instantiate(original.itemData.itemPrefab, randomSlot.transform.position, Quaternion.identity), randomSlot);
+        // GameManager.instance.selectedItem = original;
+        // originalSlot.selectionOutline.SetActive(true);
 
         GameManager.instance.orderManager.CheckAllOrders();
         return true;
@@ -204,7 +210,6 @@ public class ItemManager : MonoBehaviour
         newItem.currentSlot = slot;
         slot.currentItem = newItem;
         itemObj.transform.SetParent(slot.transform);
-        GameManager.instance.selectedItem = newItem;
 
         // Effect
         itemObj.transform.localScale = Vector3.zero;
@@ -228,6 +233,7 @@ public class ItemManager : MonoBehaviour
 
         item.PlayExplodeEffectAndDestroy();
         item.currentSlot.currentItem = null;
+        item.currentSlot.selectionOutline.SetActive(false);
         item.currentSlot = null;
 
         GameManager.instance.resourceManager.AddCoins(GetPriceByItemLevel(item.itemData.itemLevel));
@@ -249,11 +255,14 @@ public class ItemManager : MonoBehaviour
 
         GameObject itemObj = Instantiate(lastSoldItemData.itemPrefab, lastSoldSlot.transform.position, Quaternion.identity);
         SetupNewItem(itemObj, lastSoldSlot);
+        lastSoldSlot.selectionOutline.SetActive(true);
 
         GameManager.instance.resourceManager.AddCoins(-GetPriceByItemLevel(lastSoldItemData.itemLevel));
 
         lastSoldItemData = null;
         lastSoldSlot = null;
+
+        GameManager.instance.selectedItem = itemObj.GetComponent<Item>();
     }
 
     public int GetPriceByItemLevel(int level)
