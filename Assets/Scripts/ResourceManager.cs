@@ -73,6 +73,7 @@ public class ResourceManager : MonoBehaviour
         else
         {
             energyRechargePanel.SetActive(false);
+            chargeTimeText.gameObject.SetActive(false);
 
             // 충전 완료 후 초기화
             currentTime = 0f;

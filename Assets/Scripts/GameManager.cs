@@ -4,9 +4,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public ItemManager itemManager;
-    public OrderManager orderManager;
-    public ResourceManager resourceManager;
+    [HideInInspector] public ItemManager itemManager;
+    [HideInInspector] public OrderManager orderManager;
+    [HideInInspector] public ResourceManager resourceManager;
+
+    public Item selectedItem;
 
     private void Awake()
     {

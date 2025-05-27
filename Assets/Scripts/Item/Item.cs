@@ -31,6 +31,7 @@ public abstract class Item : MonoBehaviour
         offset = transform.position - GetMouseWorldPos();
         isDragging = true;
 
+        GameManager.instance.selectedItem = this;
     }
 
     protected virtual void OnMouseDrag()
@@ -60,8 +61,6 @@ public abstract class Item : MonoBehaviour
 
         OnMouseUpExtended();
     }
-
-    protected virtual void OnMouseUpExtended() { }
 
     protected void MoveToSlot(Slot slot)
     {
@@ -186,4 +185,7 @@ public abstract class Item : MonoBehaviour
             Destroy(gameObject);
         });
     }
+    
+    protected virtual void OnMouseUpExtended() { }
+
 }

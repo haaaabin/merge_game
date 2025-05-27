@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using TMPro;
 using UnityEngine;
+using UnityEngine.Lumin;
 
 public class ItemManager : MonoBehaviour
 {
     public List<ItemData> allItemDatas;
     private Transform itemSpawner;
+
+    private ItemData lastSoldItemData = null;
+    private Slot lastSoldSlot = null;
 
     void Start()
     {
@@ -201,6 +204,7 @@ public class ItemManager : MonoBehaviour
         newItem.currentSlot = slot;
         slot.currentItem = newItem;
         itemObj.transform.SetParent(slot.transform);
+        GameManager.instance.selectedItem = newItem;
 
         // Effect
         itemObj.transform.localScale = Vector3.zero;
@@ -211,4 +215,59 @@ public class ItemManager : MonoBehaviour
         });
     }
 
+    public void SellingItem(Item item)
+    {
+        if (item == null || item.currentSlot == null)
+        {
+            Debug.LogWarning("아이템이나 슬롯이 유효하지 않습니다.");
+            return;
+        }
+
+        lastSoldItemData = item.itemData;
+        lastSoldSlot = item.currentSlot;
+
+        item.PlayExplodeEffectAndDestroy();
+        item.currentSlot.currentItem = null;
+        item.currentSlot = null;
+
+        GameManager.instance.resourceManager.AddCoins(GetPriceByItemLevel(item.itemData.itemLevel));
+    }
+
+    public void CancelLastSell()
+    {
+        if (lastSoldItemData == null || lastSoldSlot == null)
+        {
+            Debug.LogWarning("마지막 판매를 취소할 아이템이나 슬롯이 없습니다.");
+            return;
+        }
+
+        if (!lastSoldSlot.isEmpty)
+        {
+            Debug.LogWarning("마지막 판매를 취소할 슬롯이 비어있지 않습니다.");
+            return;
+        }
+
+        GameObject itemObj = Instantiate(lastSoldItemData.itemPrefab, lastSoldSlot.transform.position, Quaternion.identity);
+        SetupNewItem(itemObj, lastSoldSlot);
+
+        GameManager.instance.resourceManager.AddCoins(-GetPriceByItemLevel(lastSoldItemData.itemLevel));
+
+        lastSoldItemData = null;
+        lastSoldSlot = null;
+    }
+
+    public int GetPriceByItemLevel(int level)
+    {
+        switch (level)
+        {
+            case 1: return 2;
+            case 2: return 4;
+            case 3: return 8;
+            case 4: return 16;
+            case 5: return 30;
+            case 6: return 52;
+            case 7: return 66;
+            default: return 0;
+        }
+    }
 }
