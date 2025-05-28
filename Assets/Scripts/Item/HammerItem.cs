@@ -18,8 +18,6 @@ public class HammerItem : Item
                 {
                     if (GameManager.instance.itemManager.TryDivideItem(otherItem))
                     {
-                        // GameManager.instance.selectedItem = otherItem;
-                        // GameManager.instance.selectedItem.currentSlot.selectionOutline.SetActive(true);
                         PlayExplodeEffectAndDestroy();
                     }
                     else

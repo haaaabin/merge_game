@@ -185,3 +185,4 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   currentItem: {fileID: 0}
   selectionOutline: {fileID: 34352260335251478}
+  effectPrefab: {fileID: 1967835574231978638, guid: 3e196c9e632c76841a71cb6e2dc6d010, type: 3}

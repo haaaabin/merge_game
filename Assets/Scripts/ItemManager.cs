@@ -53,8 +53,7 @@ public class ItemManager : MonoBehaviour
         randomSlot.currentItem = item;
 
         // effect
-        itemObj.transform.localScale = Vector3.zero;
-        itemObj.transform.DOScale(0.3f, 0.5f).SetEase(Ease.OutBack);
+        SpawnEffect(itemObj);
 
         itemObj.transform
                .DOMove(randomSlot.transform.position, 0.7f)
@@ -66,6 +65,12 @@ public class ItemManager : MonoBehaviour
                });
 
         GameManager.instance.orderManager.CheckAllOrders();
+    }
+
+    private void SpawnEffect(GameObject item, float endValue= 0.3f, float delay = 0.5f)
+    {
+        item.transform.localScale = Vector3.zero;
+        item.transform.DOScale(endValue, delay).SetEase(Ease.OutBack);
     }
 
     public bool CanMerge(Item itemA, Item itemB)
@@ -154,11 +159,10 @@ public class ItemManager : MonoBehaviour
         }
 
         Slot randomSlot = nearbyEmptySlots[Random.Range(0, nearbyEmptySlots.Count)];
-
+        
         SetupNewItem(Instantiate(original.itemData.itemPrefab, randomSlot.transform.position, Quaternion.identity), randomSlot);
-        // GameManager.instance.selectedItem = original;
-        // originalSlot.selectionOutline.SetActive(true);
-
+        SpawnEffect(original.gameObject);
+        SpawnEffect(randomSlot.currentItem.gameObject);
         GameManager.instance.orderManager.CheckAllOrders();
         return true;
     }
@@ -193,12 +197,13 @@ public class ItemManager : MonoBehaviour
 
         // original 위치에 생성
         SetupNewItem(Instantiate(previousLevelData.itemPrefab, originalSlot.transform.position, Quaternion.identity), originalSlot);
-
+        SpawnEffect(originalSlot.currentItem.gameObject);
         // slot1 위치에 생성
         SetupNewItem(Instantiate(previousLevelData.itemPrefab, slot1.transform.position, Quaternion.identity), slot1);
-
+        SpawnEffect(slot1.currentItem.gameObject);
         // slot2 위치에 생성
         SetupNewItem(Instantiate(previousLevelData.itemPrefab, slot2.transform.position, Quaternion.identity), slot2);
+        SpawnEffect(slot2.currentItem.gameObject);
 
         GameManager.instance.orderManager.CheckAllOrders();
         return true;
@@ -255,6 +260,7 @@ public class ItemManager : MonoBehaviour
 
         GameObject itemObj = Instantiate(lastSoldItemData.itemPrefab, lastSoldSlot.transform.position, Quaternion.identity);
         SetupNewItem(itemObj, lastSoldSlot);
+        SpawnEffect(itemObj);
         lastSoldSlot.selectionOutline.SetActive(true);
 
         GameManager.instance.resourceManager.AddCoins(-GetPriceByItemLevel(lastSoldItemData.itemLevel));

@@ -231,6 +231,13 @@ public abstract class Item : MonoBehaviour
             spriteRenderer.DOFade(0f, 0.5f);
         }
 
+        // 이펙트 생성
+        if (currentSlot != null && currentSlot.effectPrefab != null)
+        {
+            GameObject effect = Instantiate(currentSlot.effectPrefab, transform.position, Quaternion.identity);
+            Destroy(effect, effect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+        }
+
         selectionTween?.Kill();  // 기존 Tween 종료
         selectionTween = transform.DOScale(Vector3.zero, 0.3f).OnComplete(() =>
                         {
