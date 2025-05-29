@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ItemSpawner : Item
+public class SpawnerItem : Item
 {
     protected override void OnMouseDown()
     {
