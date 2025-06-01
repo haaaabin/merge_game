@@ -20,7 +20,7 @@
 
 <a name="Intro"></a>
 ## 프로젝트 개요
-- 프로젝트 기간 : 2025.05 ~ 
+- 프로젝트 기간 : 2025.05 ~ 진행 중
 - 개발 엔진 및 언어 : Unity & C#
 - 플랫폼 : 모바일
 
@@ -37,7 +37,22 @@
 <a name="Play"></a>
 ## 게임 플레이
 
+<h5> 아이템 랜덤 생성 & 병합 </h5>
+<img src="https://github.com/user-attachments/assets/01c8e384-9141-465b-b0d8-6095d21f695d" width="300">
 <br/>
+
+<h5> 에너지 충전 </h5>
+<img src="https://github.com/user-attachments/assets/0c2d9940-0f0e-40dd-92fa-98fd293eb65d" width="300">
+<br/>
+
+<h5> 거울 아이템 사용 </h5>
+<img src="https://github.com/user-attachments/assets/8ec0040e-4a7f-49ba-9dd4-23c01adf122e" width="300">
+<br/>
+
+<h5> 망치 아이템 사용 </h5>
+<img src="https://github.com/user-attachments/assets/71b4fe42-89c4-4155-afc4-54d8d4c91498" width="300">
+<br/>
+
 
 <a name="CoreFeatures"></a>
 ## 핵심 기능
@@ -51,4 +66,11 @@
 3. **아이템 병합 & 주문 관리 시스템** 기능
     - 같은 레벨의 아이템을 합쳐서 합성시켜서 높은 레벨의 아이템을 생성하도록 구현하였습니다.
     - Queue와 HashSet을 활용해 중복 아이템 주문을 방지하였습니다.
-      
+
+<br/>
+
+## 진행 예정 기능
+1. 경험치 기반 레벨 업 기능
+2. 시각적인 재미 요소를 더할 파티클 이펙트 및 애니메이션
+3. PlayerPrefs / Json을 활용하여 게임 진행 상황 및 플레이어 상태를 저장하고, 게임 재시작 시 복원 가능하도록 구현
+<br/>
